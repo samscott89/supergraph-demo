@@ -25,6 +25,8 @@ services:
     build: ./subgraphs/products
     ports:
       - "4001:4000"
+    environment:
+      - OSO_AUTH
   inventory:
     container_name: inventory
     build: ./subgraphs/inventory

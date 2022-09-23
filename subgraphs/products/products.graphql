@@ -2,9 +2,22 @@ extend schema
     @link(url: "https://specs.apollo.dev/federation/v2.0",
        import: ["@key", "@shareable", "@tag", "@inaccessible"])
 
+directive @authz(permission: String! = "read", resource: String) on FIELD_DEFINITION | OBJECT
+
 type Query {
   allProducts: [ProductItf]
   product(id: ID!): ProductItf
+}
+
+type Mutation {
+  product(id: ID!): ProductMutation 
+}
+
+type ProductMutation @authz(permission: "edit", resource: "Product") {
+  name: String
+
+  changeName(name: String!): String
+    @authz(permission: "edit_name", resource: "Product")
 }
 
 interface ProductItf implements SkuItf {
