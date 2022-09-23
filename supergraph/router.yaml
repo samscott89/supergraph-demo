@@ -26,3 +26,8 @@ telemetry:
 
 include_subgraph_errors:
   all: true # Propagate errors from all subgraphs
+headers:
+  all: # Header rules for all subgraphs
+    request:
+      - propagate:
+          matching: .*
